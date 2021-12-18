@@ -8,7 +8,7 @@ azatrg Infra repository
 Для подключения к хосту без внешнего ip-адреса (someinternalhost) по ssh в одну команду, надо использовать ключ -J. Источник man ssh. Вот сама команда:
 
 ```
-ssh -i ~/.ssh/appuser -J appuser@62.84.117.178 appuser@10.128.0.17
+ssh -i ~/.ssh/appuser -J appuser@51.250.4.155 appuser@10.128.0.17
 ```
 
 #### Дополнительное задание
@@ -19,7 +19,7 @@ ssh -i ~/.ssh/appuser -J appuser@62.84.117.178 appuser@10.128.0.17
 touch ~/.ssh/config && cat <<\EOF >>~/.ssh/config
 ### The Bastion Host
 > Host bastion
->   HostName 62.84.117.178
+>   HostName 51.250.10.192
 >   User appuser
 >
 > ### The Remote Host
@@ -33,3 +33,8 @@ touch ~/.ssh/config && cat <<\EOF >>~/.ssh/config
 ```
 ssh someinternalhost
 ```
+
+## VPN-сервер для серверов Yandex.cloud
+
+bastion_IP = 51.250.10.192
+someinternalhost_IP = 10.128.0.17

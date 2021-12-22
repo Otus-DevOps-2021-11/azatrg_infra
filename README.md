@@ -38,3 +38,8 @@ ssh someinternalhost
 
 bastion_IP = 51.250.10.192
 someinternalhost_IP = 10.128.0.17
+
+## Деплой тестового приложения
+
+testapp_IP =
+testapp_port =

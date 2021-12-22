@@ -51,6 +51,7 @@ testapp_port = 9292
 
 Startup script находиться тут - https://gist.githubusercontent.com/azatrg/772a709cc72731bf436e2585d78a0207/raw/2432fb763f8e8e51276e83f2ff885d360414ea3a/deploy_ruby_mongo_app.sh
 вызов происходит из файла metadata.yaml, который добавлен в текущий репозиторий. Для автоматического деплоя интанса со startup script используется команда:
+```
 yc compute instance create \
   --name reddit-app \
   --hostname reddit-app \
@@ -60,6 +61,9 @@ yc compute instance create \
   --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
   --metadata serial-port-enable=1 \
   --metadata-from-file user-data=metadata.yaml
+```
 
 При этом обращаю внимание, что сначала создается инстанс, потом выполняется скрипт. Поэтому приложение будет доступно примерно через 2 минуты после старта инстанса. Лог выполнения скрипта можно посмотреть командой:
+```
 sudo less /var/log/cloud-init-output.log
+```

@@ -1,5 +1,5 @@
 {
-    "yc_service_access_key": "5345lkj34l53j4lk5j",
+    "yc_service_access_key": "./variables.json.example",
     "folder_id": "dsf8fsd9f8sfb0a0j",
     "source_image_family": "ubuntu-1604-lts",
     "platform_id": "standard-v1",

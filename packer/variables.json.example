@@ -1,0 +1,10 @@
+{
+    "yc_service_access_key": "{{env `YC_SERVICE_VARIABLE`}}",
+    "folder_id": "dsf8fsd9f8sfb0a0j",
+    "source_image_family": "ubuntu-1604-lts",
+    "platform_id": "standard-v1",
+    "instance_cores": "2",
+    "instance_mem_gb": "4",
+    "ssh_username": "ubuntu",
+    "image_family": "reddit-app"
+  }

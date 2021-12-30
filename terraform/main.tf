@@ -1,16 +1,14 @@
 provider "yandex" {
-  token     = "AQAAAABX-5zoAATuwb9Q0WRMN0WJiFnfWMJbCMA"
-  cloud_id  = "b1geeigb8tm4mbhthlqf"
-  folder_id = "b1g6rdsrvhrut8j2904c"
-  zone      = "ru-central1-a"
+  service_account_key_file = var.service_account_key_file
+  cloud_id  = var.cloud_id
+  folder_id = var.folder_id
+  zone      = var.zone
 }
 
 resource "yandex_compute_instance" "app" {
   name = "reddit-app"
   platform_id = "standard-v1"
-  metadata = {
-  ssh-keys = "ubuntu:${file("~/.ssh/appuser.pub")}"
-  }
+  zone      = var.zone
 
   resources {
     cores  = 2
@@ -20,14 +18,19 @@ resource "yandex_compute_instance" "app" {
   boot_disk {
     initialize_params {
       # Указать id образа созданного в предыдущем домашем задании
-      image_id = "fd8kr0jsnv3dtgdggmfp"
+      image_id = var.image_id
+      type     = "network-ssd"
     }
   }
 
   network_interface {
     # Указан id подсети default-ru-central1-a
-    subnet_id = "e9bfqiqo25j3uov6r86q"
+    subnet_id = var.subnet_id
     nat       = true
+  }
+
+    metadata = {
+    ssh-keys = "ubuntu:${file(var.public_key_path)}"
   }
 
   connection {
@@ -36,7 +39,7 @@ resource "yandex_compute_instance" "app" {
     user = "ubuntu"
     agent = false
     # путь до приватного ключа
-    private_key = file("~/.ssh/appuser")
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {

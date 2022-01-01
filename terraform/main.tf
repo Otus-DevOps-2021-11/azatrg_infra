@@ -9,6 +9,7 @@ resource "yandex_compute_instance" "app" {
   name        = "reddit-app"
   platform_id = "standard-v1"
   zone        = var.zone
+  count = 2
 
   resources {
     cores  = 2

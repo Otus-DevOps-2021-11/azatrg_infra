@@ -9,8 +9,12 @@ variable zone {
   # Значение по умолчанию
   default = "ru-central1-a"
 }
-variable instance-name {
+variable instance_name {
   description = "Instance name"
+}
+variable instance_count {
+  description = "Number of instances"
+  default     = 1
 }
 variable public_key_path {
   # Описание переменной

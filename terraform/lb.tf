@@ -5,11 +5,11 @@ resource "yandex_lb_target_group" "lb-tg" {
 
   target {
     subnet_id = var.subnet_id
-    address   = "${yandex_compute_instance.app1.network_interface.0.ip_address}"
+    address   = "${yandex_compute_instance.app[0].network_interface.0.ip_address}"
   }
-    target {
+  target {
     subnet_id = var.subnet_id
-    address   = "${yandex_compute_instance.app2.network_interface.0.ip_address}"
+    address   = "${yandex_compute_instance.app[1].network_interface.0.ip_address}"
   }
 }
 
@@ -17,8 +17,9 @@ resource "yandex_lb_network_load_balancer" "nlb" {
   name = "nlb-reddit-app"
 
   listener {
-    name = "reddit-app-listener"
-    port = 9292
+    name        = "reddit-app-listener"
+    port        = 80
+    target_port = 9292
     external_address_spec {
       ip_version = "ipv4"
     }

@@ -6,10 +6,10 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "app" {
-  name        = "reddit-app"
+  name        = "${var.instance-name}-${count.index + 1}"
   platform_id = "standard-v1"
   zone        = var.zone
-  count = 2
+  count = 1
 
   resources {
     cores  = 2
@@ -36,7 +36,7 @@ resource "yandex_compute_instance" "app" {
 
   connection {
     type  = "ssh"
-    host  = yandex_compute_instance.app.network_interface.0.nat_ip_address
+    host  = yandex_compute_instance.app[0].network_interface.0.nat_ip_address
     user  = "ubuntu"
     agent = false
     # путь до приватного ключа

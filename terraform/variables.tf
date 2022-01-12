@@ -27,6 +27,14 @@ variable private_key_path {
 variable image_id {
   description = "Disk image"
 }
+variable app_disk_image {
+  description = "Disk image for reddit app"
+  default = "reddit-app-base"
+}
+variable db_disk_image {
+  description = "Disk image for reddit db"
+  default = "reddit-db-base"
+}
 variable subnet_id {
   description = "Subnet"
 }

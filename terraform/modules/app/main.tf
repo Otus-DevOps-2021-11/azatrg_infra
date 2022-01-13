@@ -1,9 +1,9 @@
 resource "yandex_compute_instance" "app" {
   name = var.app_instance_name
-
   labels = {
     tags = var.app_instance_name
   }
+
   resources {
     core_fraction = 20
     cores         = 2

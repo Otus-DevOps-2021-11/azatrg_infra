@@ -12,6 +12,14 @@ variable zone {
 variable instance_name {
   description = "Instance name"
 }
+variable app_instance_name {
+  description = "Instance name"
+  default = "reddit-app-prod"
+}
+variable db_instance_name {
+  description = "Instance name"
+  default = "reddit-db-prod"
+}
 variable instance_count {
   description = "Number of instances"
   default     = 1

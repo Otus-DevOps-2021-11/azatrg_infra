@@ -12,6 +12,14 @@ variable zone {
 variable instance_name {
   description = "Instance name"
 }
+variable app_instance_name {
+  description = "Instance name"
+  default = "reddit-app-stage"
+}
+variable db_instance_name {
+  description = "Instance name"
+  default = "reddit-db-stage"
+}
 variable instance_count {
   description = "Number of instances"
   default     = 1
@@ -26,6 +34,14 @@ variable private_key_path {
 }
 variable image_id {
   description = "Disk image"
+}
+variable app_disk_image {
+  description = "Disk image for reddit app"
+  default     = "reddit-app-base"
+}
+variable db_disk_image {
+  description = "Disk image for reddit db"
+  default     = "reddit-db-base"
 }
 variable subnet_id {
   description = "Subnet"

@@ -1,0 +1,10 @@
+cloud_id                 = "s8fsd98fsd98f90sd8ff"
+folder_id                = "g75dfg5fdg5dfg5fdfdf"
+zone                     = "ru-central1-a"
+image_id                 = "g7f8gf7g8f7g8f7gf8g8"
+instance-name            = "reddit-app"
+instance_count           = 2
+public_key_path          = "~/.ssh/ubuntu.pub"
+private_key_path         = "~/.ssh/ubuntu"
+subnet_id                = "dfgdfgdf8gfd8g8fdg8gd"
+service_account_key_file = "somekey.json"

@@ -5,7 +5,7 @@ resource "yandex_compute_instance" "db" {
   }
 
   resources {
-    core_fraction = 20
+    core_fraction = 100
     cores         = 2
     memory        = 2
   }
@@ -24,5 +24,23 @@ resource "yandex_compute_instance" "db" {
 
   metadata = {
     ssh-keys = "ubuntu:${file(var.public_key_path)}"
+  }
+
+  connection {
+    type  = "ssh"
+    host  = "${self.network_interface.0.nat_ip_address}"
+    user  = "ubuntu"
+    agent = false
+    # путь до приватного ключа
+    private_key = file(var.private_key_path)
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/files/mongod.conf"
+    destination = "/tmp/mongod.conf"
+  }
+
+  provisioner "remote-exec" {
+    script = "${path.module}/files/mongod.sh"
   }
 }

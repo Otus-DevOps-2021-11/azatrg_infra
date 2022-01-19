@@ -9,16 +9,20 @@ variable zone {
   # Значение по умолчанию
   default = "ru-central1-a"
 }
+variable network_name {
+  description = "network,subnet name"
+  default     = "reddit-net-prod"
+}
 variable instance_name {
   description = "Instance name"
 }
 variable app_instance_name {
   description = "Instance name"
-  default = "reddit-app-prod"
+  default     = "reddit-app-prod"
 }
 variable db_instance_name {
   description = "Instance name"
-  default = "reddit-db-prod"
+  default     = "reddit-db-prod"
 }
 variable instance_count {
   description = "Number of instances"

@@ -1,5 +1,5 @@
 resource "yandex_vpc_network" "app-network" {
-  name = "app-network"
+  name = var.network_name
 }
 
 resource "yandex_vpc_subnet" "app-subnet" {

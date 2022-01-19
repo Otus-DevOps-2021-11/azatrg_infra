@@ -5,12 +5,18 @@ provider "yandex" {
   zone                     = var.zone
 }
 
+module "vpc" {
+  source = "../modules/vpc"
+  zone = var.zone
+}
+
 module "app" {
   source          = "../modules/app"
   app_instance_name = var.app_instance_name
   public_key_path = var.public_key_path
   app_disk_image  = var.app_disk_image
-  subnet_id       = var.subnet_id
+  subnet_id       = module.vpc.subnet_id
+  database_url = module.db.external_ip_address_db
 }
 
 module "db" {
@@ -18,7 +24,7 @@ module "db" {
   db_instance_name = var.db_instance_name
   public_key_path = var.public_key_path
   db_disk_image   = var.db_disk_image
-  subnet_id       = var.subnet_id
+  subnet_id       = module.vpc.subnet_id
 }
 
 # resource "yandex_compute_instance" "app" {

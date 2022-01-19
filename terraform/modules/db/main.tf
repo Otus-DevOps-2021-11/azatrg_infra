@@ -19,7 +19,7 @@ resource "yandex_compute_instance" "db" {
 
   network_interface {
     subnet_id = var.subnet_id
-    nat       = true
+    nat       = false
   }
 
   metadata = {

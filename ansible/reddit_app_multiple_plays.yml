@@ -13,12 +13,7 @@
         mode: 0644
       notify: restart mongod
 
-  handlers:
-  - name: restart mongod
-    become: true
-    service: name=mongod state=restarted
-
-- name: Deploy application
+- name: Configure application
   hosts: app
   tags: app-tag
   become: true
@@ -29,7 +24,6 @@
       copy:
         src: files/puma.service
         dest: /etc/systemd/system/puma.service
-      tags: app-tag
       notify: reload puma
 
     - name: Add config for db connection
@@ -38,13 +32,11 @@
         dest: /opt/app/db_config
         owner: ubuntu
         group: ubuntu
-      tags: app-tag
 
     - name: enable puma
       systemd: name=puma enabled=yes
-      tags: app-tag
 
-- name: Fetch application code
+- name: Deploy application
   hosts: app
   tags: deploy-tag
   become: true
@@ -54,16 +46,18 @@
         repo: 'https://github.com/express42/reddit.git'
         dest: /opt/app/reddit
         version: monolith
-      tags: deploy-tag
       notify: reload puma
 
     - name: Bundle install
       bundler:
         state: present
         chdir: /opt/app/reddit
-      tags: deploy-tag
 
   handlers:
-    - name: reload puma
-      become: true
-      systemd: name=puma state=restarted
+  - name: restart mongod
+    become: true
+    service: name=mongod state=restarted
+
+  - name: reload puma
+    become: true
+    systemd: name=puma state=restarted

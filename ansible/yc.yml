@@ -10,5 +10,5 @@ compose:
   ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
 
 groups:
-  db: labels['tags'] == 'reddit-db-prod'
-  app: labels['tags'] == 'reddit-app-prod'
+  db: labels['tags'] == 'reddit-db'
+  app: labels['tags'] == 'reddit-app'

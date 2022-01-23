@@ -35,12 +35,12 @@ resource "yandex_compute_instance" "db" {
     private_key = file(var.private_key_path)
   }
 
-  provisioner "file" {
-    source      = "${path.module}/files/mongod.conf"
-    destination = "/tmp/mongod.conf"
-  }
+  # provisioner "file" {
+  #   source      = "${path.module}/files/mongod.conf"
+  #   destination = "/tmp/mongod.conf"
+  # }
 
-  provisioner "remote-exec" {
-    script = "${path.module}/files/mongod.sh"
-  }
+  # provisioner "remote-exec" {
+  #   script = "${path.module}/files/mongod.sh"
+  # }
 }

@@ -1,0 +1,14 @@
+---
+plugin: yc_compute
+folders:
+  - b1g6rdsrvhrut8j2904c
+filters:
+  - status == 'RUNNING'
+auth_kind: serviceaccountfile
+service_account_file: /home/reap/documents/study/devops/repo/azatrg_infra/terraform/stage/yc-terraform-key.json
+compose:
+  ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
+
+groups:
+  db: labels['tags'] == 'reddit-db-prod'
+  app: labels['tags'] == 'reddit-app-prod'

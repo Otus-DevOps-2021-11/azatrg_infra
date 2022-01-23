@@ -99,3 +99,14 @@ sudo less /var/log/cloud-init-output.log
 ### * JSON-inventory.
 
 Как я понял сам файл в формате json в качестве inventory ansible не принимает, ему нужен скрипт, который будет выводить json с форматированием понятным ансиблу. Сделал пока его статическим, Если будет время то возможно напишу динамический инвентори.
+
+### Dynamic inventory для yandexcloud
+
+1. Установить модуль yandexcloud==0.10.1. Для удобства добавил в requirements.txt
+2. Создал папку ./plugins/inventory , скопировал туда плагин.
+3. Для просмотра документации используется команда:
+```
+ansible-doc -M ./plugins/ -t inventory yc_compute
+```
+4. Заполнил файл yc.yml , в нем настройки плагина dymanic inventory.
+5. Внес правки в ansible.cfg - добавил путь к плагину и включил его.

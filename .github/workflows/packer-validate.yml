@@ -1,0 +1,20 @@
+name: Run Packer templates validation
+
+on: [push, pull_request]
+
+jobs:
+  packer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Validate template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: validate
+          target: ./packer/*.json
+          arguments: "--var-file=packer/variables.json.example --syntax-only"

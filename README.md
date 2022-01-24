@@ -9,8 +9,12 @@ azatrg Infra repository
 - [Ansible](#-ansible)
 
 
-# Yandex.cloud
+[![Run Packer templates validation](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/packer-validate.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/packer-validate.yml)
+[![Run Terraform validation & tflint](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/terraform-tflint.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/terraform-tflint.yml)
+[![Run Ansible Lint](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/ansible-lint.yml)
+[![Run tests for OTUS homework](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/run-tests.yml)
 
+# Yandex.cloud
 #### Самостоятельное задание
 
 Для подключения к хосту без внешнего ip-адреса (someinternalhost) по ssh в одну команду, надо использовать ключ -J. Источник man ssh. Вот сама команда:
@@ -110,3 +114,12 @@ ansible-doc -M ./plugins/ -t inventory yc_compute
 ```
 4. Заполнил файл yc.yml , в нем настройки плагина dymanic inventory.
 5. Внес правки в ansible.cfg - добавил путь к плагину и включил его.
+
+### Ansible роли.
+
+1. Плейбуки app и db перенесены в роли.
+2. Использована community роль для nginx.
+3. Разделены окружения stage и prod.
+4. Использован Ansible Vault для хранения секретов.
+5. Инвентори в окружения динамический (yc_compute)
+6. Добавлены github actions для проверки файлов. packer, terraform и ansible.

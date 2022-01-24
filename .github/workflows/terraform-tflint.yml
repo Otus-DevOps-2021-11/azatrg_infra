@@ -1,7 +1,6 @@
 name: Run Terraform configs validation
 
-on:
-  push:
+on: [push, pull_request]
 
 jobs:
   terraform:

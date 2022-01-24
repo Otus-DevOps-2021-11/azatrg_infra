@@ -8,10 +8,13 @@ azatrg Infra repository
 - [Использование Terraform](#-Использование-Terraform)
 - [Ansible](#-ansible)
 
-![build status](https://github.com/azatrg/azatrg_infra/actions/workflows/run-tests.yml/badge.svg)
+
+[![Run Packer templates validation](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/packer-validate.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/packer-validate.yml)
+[![Run Terraform validation & tflint](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/terraform-tflint.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/terraform-tflint.yml)
+[![Run Ansible Lint](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/ansible-lint.yml)
+[![Run tests for OTUS homework](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Otus-DevOps-2021-11/azatrg_infra/actions/workflows/run-tests.yml)
 
 # Yandex.cloud
-
 #### Самостоятельное задание
 
 Для подключения к хосту без внешнего ip-адреса (someinternalhost) по ssh в одну команду, надо использовать ключ -J. Источник man ssh. Вот сама команда:

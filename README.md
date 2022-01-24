@@ -114,3 +114,12 @@ ansible-doc -M ./plugins/ -t inventory yc_compute
 ```
 4. Заполнил файл yc.yml , в нем настройки плагина dymanic inventory.
 5. Внес правки в ansible.cfg - добавил путь к плагину и включил его.
+
+### Ansible роли.
+
+1. Плейбуки app и db перенесены в роли.
+2. Использована community роль для nginx.
+3. Разделены окружения stage и prod.
+4. Использован Ansible Vault для хранения секретов.
+5. Инвентори в окружения динамический (yc_compute)
+6. Добавлены github actions для проверки файлов. packer, terraform и ansible.

@@ -8,6 +8,7 @@ azatrg Infra repository
 - [Использование Terraform](#-Использование-Terraform)
 - [Ansible](#-ansible)
 
+![build status](https://github.com/azatrg/azatrg_infra/actions/workflows/run-tests.yml/badge.svg)
 
 # Yandex.cloud
 

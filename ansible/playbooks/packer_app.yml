@@ -1,17 +1,10 @@
 ---
 - name: 'Install packages for app'
-  hosts: default
+  hosts: all
   become: true
 
-  tasks:
-    - name: Install packages for app
-      apt:
-        update_cache: yes
-        name:
-        - ruby-full
-        - ruby-bundler
-        - build-essential
-        - apt-transport-https
-        - ca-certificates
-        - git
-        state: present
+  # vars:
+
+  roles:
+    - app
+    - jdauphant.nginx

@@ -44,6 +44,7 @@ test_unit_job:
   script:
     - ruby simpletest.rb
 
+#manual deploy
 staging:
   stage: stage
   when: manual
@@ -55,6 +56,7 @@ staging:
     name: beta
     url: http://beta.example.com
 
+#manual deploy
 production:
   stage: production
   when: manual

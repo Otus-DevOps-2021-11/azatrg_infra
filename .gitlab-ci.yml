@@ -49,7 +49,7 @@ staging:
   stage: stage
   when: manual
   only:
-    - /^\d+\.\d+\.\d+
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
@@ -61,7 +61,7 @@ production:
   stage: production
   when: manual
   only:
-    - /^\d+\.\d+\.\d+
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:

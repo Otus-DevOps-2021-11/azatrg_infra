@@ -44,24 +44,24 @@ test_unit_job:
   script:
     - ruby simpletest.rb
 
-#manual deploy
+#manual deploy edited tags
 staging:
   stage: stage
   when: manual
   only:
-    - /^\d+\. \d+\. \d+
+    - /^\d+\.\d+\.\d+
   script:
     - echo 'Deploy'
   environment:
     name: beta
     url: http://beta.example.com
 
-#manual deploy
+#manual deploy  edited tags
 production:
   stage: production
   when: manual
   only:
-    - /^\d+\. \d+\. \d+
+    - /^\d+\.\d+\.\d+
   script:
     - echo 'Deploy'
   environment:

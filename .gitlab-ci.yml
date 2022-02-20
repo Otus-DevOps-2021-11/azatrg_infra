@@ -1,5 +1,5 @@
 image: ruby:2.4.2
-# New server
+
 stages:
   - build
   - test

@@ -1,0 +1,25 @@
+---
+- name: Add Mongo repo key
+  apt_key:
+    url: https://www.mongodb.org/static/pgp/server-4.2.asc
+    state: present
+  tags: install
+
+- name: Add Mongo repository
+  apt_repository:
+    repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse
+    state: present
+  tags: install
+
+- name: Install MongoDB
+  apt:
+    update_cache: yes
+    name: mongodb-org
+    state: present
+  tags: install
+
+- name: Enabled MongoDB service
+  systemd:
+    name: mongod
+    enabled: yes
+  tags: install

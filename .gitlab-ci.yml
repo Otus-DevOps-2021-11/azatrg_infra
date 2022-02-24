@@ -1,5 +1,9 @@
+#Указал название имаджа на котором будут запускаться задачи
 image: ruby:2.4.2
-# test
+
+
+# Это этапы (stages) пайплайна, они выполняются последовательно и включают в себя задачи(jobs)
+# +2 этапа - выкатка на стейдж и продакшен
 stages:
   - build
   - test
@@ -7,63 +11,81 @@ stages:
   - stage
   - production
 
+## Задал переменные. Их можно задать глобально на все джобы, как тут. Либо на каждую джобу отдельно.
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
+## Это скритп, который задан глобально на все джобы и будет запускаться перед каждым скриптом из джобов. Тут ивсе и из названия понятно.
 before_script:
  - cd reddit
  - bundle install
 
+# Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build
   script:
-    - echo 'Building'
+    - echo 'Building app'
 
+
+#
 test_unit_job:
   stage: test
+# Это имадж который будет вызываться на данной джобе.
+  services:
+    - mongo:latest
+# Этот скрипт запускается
   script:
-    - echo 'Testing 1'
+    - ruby simpletest.rb
 
 test_integration_job:
   stage: test
   script:
-    - echo 'Testing 2'
+    - echo 'Testing 2 appppp'
 
+# Тут идет определение динамических окружений
+branch review:
+  stage: review
+  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
+  only:
+    - branches
+  except:
+    - master
+
+
+# переименовал джобу. Теперь она будет деплоить в тестовую среду.
 deploy_dev_job:
   stage: review
   script:
     - echo 'Deploy'
+# Это определение окружения в котором джоба будет выполнятся. Я задал только название и ссылку url
   environment:
-    name: dev
+    name: Dev
     url: http://dev.example.com
 
-test_unit_job:
-  stage: test
-  services:
-    - mongo:latest
-  script:
-    - ruby simpletest.rb
+# тут описываю 2 новых этапа для выкатки на окружения
 
-#manual deploy edited tags
 staging:
   stage: stage
+# when говорит когда запускать джобу, по-умолчанию, если ничего не задано, она запускается по порядку(определенному в начале файла) при статусе on_success в предыдущих джобах
   when: manual
-  only:
-    - /^\d+\.\d+\.\d+/
+  # only:
+  #   - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
     name: beta
     url: http://beta.example.com
 
-#manual deploy  edited tags
 production:
   stage: production
   when: manual
-  only:
-    - /^\d+\.\d+\.\d+/
+  # only:
+  # - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
     name: production
-    url: http://prod.example.com
+    url: http://example.com

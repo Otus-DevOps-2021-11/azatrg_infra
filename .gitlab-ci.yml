@@ -15,12 +15,15 @@ stages:
 ## Задал переменные. Их можно задать глобально на все джобы, как тут. Либо на каждую джобу отдельно.
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
 
 ## Это скритп, который задан глобально на все джобы и будет запускаться перед каждым скриптом из джобов. Тут ивсе и из названия понятно.
 # before_script:
 #  - cd reddit
 #  - bundle install
-
+ before_script:
+  - docker info
 # Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build

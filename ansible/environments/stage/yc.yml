@@ -12,3 +12,4 @@ compose:
 groups:
   db: labels['tags'] == 'reddit-db'
   app: labels['tags'] == 'reddit-app'
+  gitlab: labels['tags'] == 'gitlab'

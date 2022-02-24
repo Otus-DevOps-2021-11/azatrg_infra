@@ -1,0 +1,60 @@
+---
+- name: Add gitlab runner
+  hosts: gitlab
+  become: true
+  vars:
+  tasks:
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - python3-pip
+      tags: install
+
+    - name: Install required pip packages
+      pip: name={{ item }}
+      with_items:
+        - docker
+        # - python-gitlab
+      tags: install
+
+    - name: Pull gitlab-runner image
+      docker_image:
+        name: gitlab/gitlab-runner:latest
+        source: pull
+      tags: docker-pull
+
+    - name: Create gitlab-runner container
+      docker_container:
+        name: gitlab-runner
+        image: "gitlab/gitlab-runner:latest"
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+          - "/srv/gitlab-runner/config:/etc/gitlab-runner"
+        state: started
+      tags: docker-run
+
+    - name: Register runner
+      community.docker.docker_container_exec:
+        container: gitlab-runner
+        command: bash -c "gitlab-runner register --url http://62.84.126.229 --non-interactive --locked=false --name DockerRunner --executor docker --docker-image alpine:latest --registration-token kwc_yM-MzZxbnw6FRzKD --tag-list "linux,xenial,ubuntu,docker" --run-untagged"
+      register: result
+      tags: register-runner
+
+    - name: Print stdout
+      debug:
+        var: result.stdout
+      tags: register-runner
+
+    # - name: "Register runner"
+    #   community.general.gitlab_runner:
+    #     api_url: http://192.168.233.130/
+    #     api_token: "bTHCD5gNzAYtVwG11xAz"
+    #     registration_token: "kwc_yM-MzZxbnw6FRzKD"
+    #     description: Docker Machine t1
+    #     access_level: not_protected
+    #     state: present
+    #     active: True
+    #     tag_list: ['linux,xenial,ubuntu,docker']
+    #     run_untagged: False
+    #     locked: False
+    #   tags: register-runner

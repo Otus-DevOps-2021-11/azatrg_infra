@@ -1,6 +1,7 @@
 #Указал название имаджа на котором будут запускаться задачи
-image: ruby:2.4.2
-
+image: docker:latest
+services:
+  - docker:dind
 
 # Это этапы (stages) пайплайна, они выполняются последовательно и включают в себя задачи(jobs)
 # +2 этапа - выкатка на стейдж и продакшен
@@ -23,9 +24,9 @@ variables:
 # Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
+  # image: docker:latest
+  # services:
+  #   - docker:dind
   script:
     - docker build -t reddit:0.4 ./reddit/
 

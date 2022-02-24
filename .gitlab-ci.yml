@@ -22,8 +22,8 @@ variables:
 # before_script:
 #  - cd reddit
 #  - bundle install
- before_script:
-  - docker info
+before_script:
+- docker info
 # Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build

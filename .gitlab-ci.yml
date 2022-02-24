@@ -23,6 +23,7 @@ variables:
 # Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build
+  image: docker:latest
   script:
     - docker build -t azatrg/reddit:0.4 ./reddit/
 

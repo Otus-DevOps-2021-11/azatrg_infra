@@ -28,64 +28,64 @@ build_job:
 
 
 #
-test_unit_job:
-  stage: test
-# Это имадж который будет вызываться на данной джобе.
-  services:
-    - mongo:latest
-# Этот скрипт запускается
-  script:
-    - ruby simpletest.rb
+# test_unit_job:
+#   stage: test
+# # Это имадж который будет вызываться на данной джобе.
+#   services:
+#     - mongo:latest
+# # Этот скрипт запускается
+#   script:
+#     - ruby simpletest.rb
 
-test_integration_job:
-  stage: test
-  script:
-    - echo 'Testing 2 appppp'
+# test_integration_job:
+#   stage: test
+#   script:
+#     - echo 'Testing 2 appppp'
 
-# Тут идет определение динамических окружений
-branch review:
-  stage: review
-  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
-  environment:
-    name: branch/$CI_COMMIT_REF_NAME
-    url: http://$CI_ENVIRONMENT_SLUG.example.com
-  only:
-    - branches
-  except:
-    - master
+# # Тут идет определение динамических окружений
+# branch review:
+#   stage: review
+#   script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+#   environment:
+#     name: branch/$CI_COMMIT_REF_NAME
+#     url: http://$CI_ENVIRONMENT_SLUG.example.com
+#   only:
+#     - branches
+#   except:
+#     - master
 
 
-# переименовал джобу. Теперь она будет деплоить в тестовую среду.
-deploy_dev_job:
-  stage: review
-  script:
-    - echo 'Deploy'
-# Это определение окружения в котором джоба будет выполнятся. Я задал только название и ссылку url
-  environment:
-    name: Dev
-    url: http://dev.example.com
+# # переименовал джобу. Теперь она будет деплоить в тестовую среду.
+# deploy_dev_job:
+#   stage: review
+#   script:
+#     - echo 'Deploy'
+# # Это определение окружения в котором джоба будет выполнятся. Я задал только название и ссылку url
+#   environment:
+#     name: Dev
+#     url: http://dev.example.com
 
-# тут описываю 2 новых этапа для выкатки на окружения
+# # тут описываю 2 новых этапа для выкатки на окружения
 
-staging:
-  stage: stage
-# when говорит когда запускать джобу, по-умолчанию, если ничего не задано, она запускается по порядку(определенному в начале файла) при статусе on_success в предыдущих джобах
-  when: manual
-  # only:
-  #   - /^\d+\.\d+\.\d+/
-  script:
-    - echo 'Deploy'
-  environment:
-    name: beta
-    url: http://beta.example.com
+# staging:
+#   stage: stage
+# # when говорит когда запускать джобу, по-умолчанию, если ничего не задано, она запускается по порядку(определенному в начале файла) при статусе on_success в предыдущих джобах
+#   when: manual
+#   # only:
+#   #   - /^\d+\.\d+\.\d+/
+#   script:
+#     - echo 'Deploy'
+#   environment:
+#     name: beta
+#     url: http://beta.example.com
 
-production:
-  stage: production
-  when: manual
-  # only:
-  # - /^\d+\.\d+\.\d+/
-  script:
-    - echo 'Deploy'
-  environment:
-    name: production
-    url: http://example.com
+# production:
+#   stage: production
+#   when: manual
+#   # only:
+#   # - /^\d+\.\d+\.\d+/
+#   script:
+#     - echo 'Deploy'
+#   environment:
+#     name: production
+#     url: http://example.com

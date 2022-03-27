@@ -24,7 +24,7 @@
     - name: Create gitlab container
       docker_container:
         name: gitlab
-        hostname: gitlab.example.com
+        hostname: 62.84.126.229
         image: "gitlab/gitlab-ce:latest"
         env:
             EXTERNAL_URL: "http://62.84.126.229"

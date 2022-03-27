@@ -1,98 +1,24 @@
-#Указал название имаджа на котором будут запускаться задачи
-image: docker:latest
-services:
-  - docker:dind
-
-# Это этапы (stages) пайплайна, они выполняются последовательно и включают в себя задачи(jobs)
-# +2 этапа - выкатка на стейдж и продакшен
 stages:
   - build
-  # - test
-  # - review
-  # - stage
-  # - production
+  - test
+  - deploy
 
-## Задал переменные. Их можно задать глобально на все джобы, как тут. Либо на каждую джобу отдельно.
-variables:
-  DATABASE_URL: 'mongodb://mongo/user_posts'
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-
-## Это скритп, который задан глобально на все джобы и будет запускаться перед каждым скриптом из джобов. Тут ивсе и из названия понятно.
-# before_script:
-#  - cd reddit
-#  - bundle install
-before_script:
-- docker info
-# Это задача(job)она относиться к этапу build. Пока что это только проверка.
 build_job:
   stage: build
-  # image: docker:latest
-  # services:
-  #   - docker:dind
   script:
-    - docker build -t reddit:0.4 ./reddit/
+    - echo 'Building'
 
+test_unit_job:
+  stage: test
+  script:
+    - echo 'Testing 1'
 
-#
-# test_unit_job:
-#   stage: test
-# # Это имадж который будет вызываться на данной джобе.
-#   services:
-#     - mongo:latest
-# # Этот скрипт запускается
-#   script:
-#     - ruby simpletest.rb
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
 
-# test_integration_job:
-#   stage: test
-#   script:
-#     - echo 'Testing 2 appppp'
-
-# # Тут идет определение динамических окружений
-# branch review:
-#   stage: review
-#   script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
-#   environment:
-#     name: branch/$CI_COMMIT_REF_NAME
-#     url: http://$CI_ENVIRONMENT_SLUG.example.com
-#   only:
-#     - branches
-#   except:
-#     - master
-
-
-# # переименовал джобу. Теперь она будет деплоить в тестовую среду.
-# deploy_dev_job:
-#   stage: review
-#   script:
-#     - echo 'Deploy'
-# # Это определение окружения в котором джоба будет выполнятся. Я задал только название и ссылку url
-#   environment:
-#     name: Dev
-#     url: http://dev.example.com
-
-# # тут описываю 2 новых этапа для выкатки на окружения
-
-# staging:
-#   stage: stage
-# # when говорит когда запускать джобу, по-умолчанию, если ничего не задано, она запускается по порядку(определенному в начале файла) при статусе on_success в предыдущих джобах
-#   when: manual
-#   # only:
-#   #   - /^\d+\.\d+\.\d+/
-#   script:
-#     - echo 'Deploy'
-#   environment:
-#     name: beta
-#     url: http://beta.example.com
-
-# production:
-#   stage: production
-#   when: manual
-#   # only:
-#   # - /^\d+\.\d+\.\d+/
-#   script:
-#     - echo 'Deploy'
-#   environment:
-#     name: production
-#     url: http://example.com
+deploy_job:
+  stage: deploy
+  script:
+    - echo 'Deploy'

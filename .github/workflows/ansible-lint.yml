@@ -1,6 +1,6 @@
 name: Run Ansible Lint
 
-on: [push, pull_request]
+on:
 
 jobs:
   lint:

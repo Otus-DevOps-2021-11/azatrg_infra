@@ -1,0 +1,41 @@
+---
+- name: Install Gitlab-CI in Docker container on host
+  hosts: gitlab
+  become: true
+  vars:
+  tasks:
+    - name: Create a directories for gitlab volumes
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      with_items:
+        - /srv/gitlab
+        - /srv/gitlab/config
+        - /srv/gitlab/data
+        - /srv/gitlab/logs
+
+    - name: Pull gitlab docker image
+      docker_image:
+        name: gitlab/gitlab-ce:latest
+        source: pull
+      tags: docker-pull
+
+    - name: Create gitlab container
+      docker_container:
+        name: gitlab
+        hostname: 62.84.126.229
+        image: "gitlab/gitlab-ce:latest"
+        env:
+            EXTERNAL_URL: "http://62.84.126.229"
+        network_mode: bridge
+        published_ports:
+          - "80:80"
+          - "443:443"
+          - "2222:22"
+        volumes:
+          - "/srv/gitlab/config:/etc/gitlab"
+          - "/srv/gitlab/logs:/var/log/gitlab"
+          - "/srv/gitlab/data:/var/opt/gitlab"
+        state: started
+      tags: docker-run

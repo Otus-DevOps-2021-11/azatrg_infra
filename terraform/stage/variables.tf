@@ -6,7 +6,7 @@ variable folder_id {
 }
 variable zone {
   description = "Zone"
-  default = "ru-central1-a"
+  default     = "ru-central1-a"
 }
 variable network_name {
   description = "network,subnet name"
@@ -19,6 +19,10 @@ variable app_instance_name {
 variable db_instance_name {
   description = "Instance name"
   default     = "reddit-db"
+}
+variable gitlab_instance_name {
+  description = "Instance name"
+  default     = "gitlab"
 }
 variable instance_count {
   description = "Number of instances"
@@ -37,6 +41,9 @@ variable app_disk_image {
 variable db_disk_image {
   description = "Disk image for reddit db"
   # default     = "reddit-db-base"
+}
+variable gitlab_disk_image {
+  description = "Disk image for reddit db"
 }
 variable service_account_key_file {
   description = "key .json"
